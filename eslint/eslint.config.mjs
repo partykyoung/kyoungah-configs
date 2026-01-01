@@ -19,6 +19,12 @@ export default defineConfig([
       /* debugger 금지 */
       "no-debugger": "error",
 
+      /* 사용하지 않는 변수 금지 */
+      "no-unused-vars": "error",
+
+      /* 선언되지 않은 전역 변수 사용 방지 */
+      "no-undef": "error",
+
       /* import 순서: 절대경로 먼저, 상대경로 나중에 */
       "import/order": [
         "error",
