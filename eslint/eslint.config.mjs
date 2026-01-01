@@ -1,15 +1,16 @@
 import js from "@eslint/js";
 import globals from "globals";
 import { defineConfig } from "eslint/config";
+
 import importPlugin from "eslint-plugin-import";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
+  importPlugin,
   {
     files: ["**/*.{js,mjs,cjs}"],
-    plugins: {
-      js,
-      import: importPlugin,
-    },
+    ignores: ["**/*.config.{js,mjs,cjs}", "**/*.config.{ts,mts,cts}"],
+    plugins: { js },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
     rules: {
@@ -40,7 +41,21 @@ export default defineConfig([
       /* 기본은 named export */
       "import/no-default-export": "error",
 
-      /* import 순서: 절대경로 먼저, 상대경로 나중에 */
+      /* 3단계 이상 상대경로 금지 */
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["../../../*"],
+              message:
+                "상위 디렉토리 3단계 이상 접근 시 alias(@/...) 기반 절대경로를 사용하세요.",
+            },
+          ],
+        },
+      ],
+
+      /* import 순서: alias → 상대경로 */
       "import/order": [
         "error",
         {
@@ -61,4 +76,5 @@ export default defineConfig([
       ],
     },
   },
+  eslintConfigPrettier,
 ]);
