@@ -25,17 +25,20 @@ export default defineConfig([
       /* 선언되지 않은 전역 변수 사용 방지 */
       "no-undef": "error",
 
+      /* Error 객체만 throw 허용 */
+      "no-throw-literal": "error",
+
       /* === / !== 강제 */
       eqeqeq: ["error", "always"],
 
       /* if / else / loop 중괄호 필수 */
       curly: ["error", "all"],
 
-      /* Error 객체만 throw 허용 */
-      "no-throw-literal": "error",
-
       /* 콜백 함수는 화살표 함수 선호 */
       "prefer-arrow-callback": "error",
+
+      /* 기본은 named export */
+      "import/no-default-export": "error",
 
       /* import 순서: 절대경로 먼저, 상대경로 나중에 */
       "import/order": [
