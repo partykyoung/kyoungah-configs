@@ -1,5 +1,5 @@
-import js from "@eslint/js";
 import globals from "globals";
+import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
@@ -43,9 +43,6 @@ export default defineConfig([
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "error",
 
-      /* 선언되지 않은 전역 변수 사용 방지 */
-      "no-undef": "error",
-
       /* non-null assertion 금지 */
       "@typescript-eslint/no-non-null-assertion": "error",
 
@@ -72,6 +69,15 @@ export default defineConfig([
 
       /* if / else / loop 중괄호 필수 */
       curly: ["error", "all"],
+
+      /* 화살표 함수 선호, 단 함수 선언식도 예외적으로 허용 (컨벤션 준수) */
+      "func-style": ["warn", "expression", { allowArrowFunctions: true }],
+
+      /* 콜백함수는 화살표 함수만 허용 */
+      "prefer-arrow-callback": ["error", { allowNamedFunctions: false }],
+
+      /* 화살표 함수 본문: 필요할 때만 중괄호 사용 */
+      "arrow-body-style": ["error", "as-needed"],
 
       /* 네이밍 컨벤션 (Variable, Function, Class, Constant) */
       "@typescript-eslint/naming-convention": [
@@ -107,7 +113,7 @@ export default defineConfig([
       "check-file/filename-naming-convention": [
         "error",
         {
-          "**/*.{js,jsx}": "KEBAB_CASE",
+          "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}": "KEBAB_CASE",
         },
       ],
 
