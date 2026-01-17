@@ -1,16 +1,20 @@
 import js from "@eslint/js";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
 import importPlugin from "eslint-plugin-import";
+import checkFilePlugin from "eslint-plugin-check-file";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
-  importPlugin,
+  eslintConfigPrettier,
   {
-    files: ["**/*.{js,mjs,cjs}"],
-    ignores: ["**/*.config.{js,mjs,cjs}", "**/*.config.{ts,mts,cts}"],
-    plugins: { js },
+    ignores: ["**/*.config.{js,mjs,cjs,ts,mts,cts}", "**/.*rc.{js,mjs,cjs}"],
+  },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: { js, import: importPlugin, "check-file": checkFilePlugin },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.browser },
     rules: {
@@ -20,11 +24,45 @@ export default defineConfig([
       /* debugger 금지 */
       "no-debugger": "error",
 
+      /* any 금지 */
+      "@typescript-eslint/no-explicit-any": "error",
+
+      /* @ts-expect-error 사용, @ts-ignore 금지 */
+      "@typescript-eslint/prefer-ts-expect-error": "error",
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-expect-error": "allow-with-description",
+          "ts-ignore": true,
+          "ts-nocheck": true,
+          "ts-check": false,
+        },
+      ],
+
       /* 사용하지 않는 변수 금지 */
-      "no-unused-vars": "error",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
 
       /* 선언되지 않은 전역 변수 사용 방지 */
       "no-undef": "error",
+
+      /* non-null assertion 금지 */
+      "@typescript-eslint/no-non-null-assertion": "error",
+
+      /* 함수 반환 타입 명시 */
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        {
+          allowExpressions: true, // 콜백 허용
+          allowTypedFunctionExpressions: true, // 이미 타입이 있으면 허용
+        },
+      ],
+
+      /* 변수는 타입 추론 선호 */
+      "@typescript-eslint/no-inferrable-types": "warn",
+
+      /* type / interface 기준  - 기본은 type 사용 */
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
 
       /* Error 객체만 throw 허용 */
       "no-throw-literal": "error",
@@ -35,8 +73,51 @@ export default defineConfig([
       /* if / else / loop 중괄호 필수 */
       curly: ["error", "all"],
 
-      /* 콜백 함수는 화살표 함수 선호 */
-      "prefer-arrow-callback": "error",
+      /* 네이밍 컨벤션 (Variable, Function, Class, Constant) */
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          // 변수 및 함수: camelCase
+          selector: ["variable", "function"],
+          format: ["camelCase"],
+        },
+        // 클래스: PascalCase
+        {
+          selector: "class",
+          format: ["PascalCase"],
+        },
+        // 상수: UPPER_SNAKE_CASE
+        {
+          selector: "variable",
+          modifiers: ["const"],
+          format: ["UPPER_CASE", "camelCase"],
+        },
+        // 타입/인터페이스: PascalCase, I 접두사 및 Type 접두사/접미사 금지
+        {
+          selector: ["typeAlias", "interface"],
+          format: ["PascalCase"],
+          custom: {
+            regex: "^(I[A-Z]|.*Type$)",
+            match: false,
+          },
+        },
+      ],
+
+      /*  파일명: kebab-case */
+      "check-file/filename-naming-convention": [
+        "error",
+        {
+          "**/*.{js,jsx}": "KEBAB_CASE",
+        },
+      ],
+
+      /* 폴더명: kebab-case */
+      "check-file/folder-naming-convention": [
+        "error",
+        {
+          "**/": "KEBAB_CASE",
+        },
+      ],
 
       /* 기본은 named export */
       "import/no-default-export": "error",
@@ -76,5 +157,5 @@ export default defineConfig([
       ],
     },
   },
-  eslintConfigPrettier,
+  tseslint.configs.recommended,
 ]);
