@@ -36,27 +36,48 @@ export default defineConfig([
         },
       ],
 
-      /* Fragment 축약 문법 권장 */
-      "react/jsx-fragments": ["error", "syntax"],
-
-      /* Boolean prop 축약 허용 */
-      "react/jsx-boolean-value": ["error", "never"],
-
-      /* JSX 중괄호 불필요한 경우 제거 */
-      "react/jsx-curly-brace-presence": [
-        "error",
-        {
-          props: "never",
-          children: "never",
-        },
-      ],
-
-      // 컴포넌트는 함수 선언문으로 정의
+      /* 
+        컴포넌트는 함수 선언문으로 정의 
+        내부 로직은 화살표 함수를 쓰되, 컴포넌트 자체는 function을 강제합니다
+      */
       "react/function-component-definition": [
         "error",
         {
           namedComponents: "function-declaration",
           unnamedComponents: "function-expression",
+        },
+      ],
+
+      /* 내부 핸들러는 handleXXX, Props 전달 시 onXXX */
+      "react/jsx-handler-names": [
+        "error",
+        {
+          eventHandlerPrefix: "handle",
+          eventHandlerPropPrefix: "on",
+          checkLocalVariables: true,
+          checkInlineFunction: true,
+        },
+      ],
+
+      /*
+        Hook과 useEffect는 하나의 책임만
+        의존성 배열을 강제하여 의도치 않은 사이드 이펙트를 방지합니다.
+      */
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+
+      /* 불필요한 JSX 구문 정리 - Fragment 축약 문법 권장 */
+      "react/jsx-fragments": ["error", "syntax"],
+
+      /*. 불필요한 JSX 구문 정리 - Boolean prop 축약 허용 */
+      "react/jsx-boolean-value": ["error", "never"],
+
+      /* 불필요한 JSX 구문 정리 - JSX 중괄호 불필요한 경우 제거 */
+      "react/jsx-curly-brace-presence": [
+        "error",
+        {
+          props: "never",
+          children: "never",
         },
       ],
 
