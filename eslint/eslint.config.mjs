@@ -163,5 +163,26 @@ export default defineConfig([
       ],
     },
   },
+  {
+    files: [
+      "app/**/*.{js,jsx,ts,tsx}",
+      "src/app/**/*.{js,jsx,ts,tsx}",
+      "apps/**/app/**/*.{js,jsx,ts,tsx}",
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "next/head",
+              message:
+                "Head 관리는 Next.js metadata API를 사용하세요. (next/head 사용 금지)",
+            },
+          ],
+        },
+      ],
+    },
+  },
   tseslint.configs.recommended,
 ]);
