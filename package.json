@@ -1,21 +1,19 @@
 {
-  "name": "@kyoungah/eslint-config",
+  "name": "@kyoungah/configs",
   "version": "0.0.0",
-  "description": "eslint config",
-  "keywords": [
-    "eslint",
-    "eslint-config",
-    "kyoungah"
-  ],
-  "scripts": {
-    "lint": "eslint"
+  "description": "Shared configs for ESLint, Prettier, and Claude rules",
+  "bin": {
+    "sync-claude-rules": "./claude-rules/scripts/sync-claude-rules.mjs"
   },
+  "files": [
+    "eslint",
+    "claude-rules",
+    "prettier"
+  ],
   "author": "Yookyoung.Park <partykyoung@gmail.com>",
-  "private": true,
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@eslint/js": "^9.39.2",
-    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-check-file": "^3.3.1",
     "eslint-plugin-import": "^2.32.0",
