@@ -1,0 +1,17 @@
+{
+  "name": "@kyoungah/prettier-config",
+  "version": "0.0.0",
+  "description": "Shared Prettier config",
+  "type": "module",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "files": [
+    "index.mjs"
+  ],
+  "author": "Yookyoung.Park <partykyoung@gmail.com>",
+  "license": "ISC",
+  "peerDependencies": {
+    "prettier": ">=3.0.0"
+  }
+}

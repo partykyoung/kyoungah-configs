@@ -1,28 +1,5 @@
 {
   "name": "@kyoungah/configs",
-  "version": "0.0.0",
-  "description": "Shared configs for ESLint, Prettier, and Claude rules",
-  "bin": {
-    "sync-claude-rules": "./claude-rules/scripts/sync-claude-rules.mjs"
-  },
-  "files": [
-    "eslint",
-    "claude-rules",
-    "prettier"
-  ],
-  "author": "Yookyoung.Park <partykyoung@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "@eslint/js": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-check-file": "^3.3.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-next": "^0.0.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "globals": "^16.5.0",
-    "typescript-eslint": "^8.51.0"
-  },
+  "private": true,
   "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
